@@ -13,7 +13,7 @@ class _TreinosScreenState extends State<TreinosScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
-  // Simulação de treinos registrados (em produção você buscaria do banco/local storage)
+  // Simulação de treinos registrados
   Set<DateTime> _treinos = {
     DateTime.utc(2025, 9, 1),
     DateTime.utc(2025, 9, 3),
@@ -25,7 +25,6 @@ class _TreinosScreenState extends State<TreinosScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Filtra só os treinos do mês atual
     int totalTreinosMes = _treinos
         .where((d) => d.month == _focusedDay.month && d.year == _focusedDay.year)
         .length;
@@ -35,20 +34,34 @@ class _TreinosScreenState extends State<TreinosScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Header
+            // Header azul com botão de voltar
             Container(
               color: Colors.blue[900],
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
               width: double.infinity,
-              child: const Center(
-                child: Text(
-                  'Treinos',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+              child: Row(
+                children: [
+                  // Botão de voltar
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                ),
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        'Treinos',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 48), // Espaço para equilibrar o layout
+                ],
               ),
             ),
 
@@ -104,9 +117,7 @@ class _TreinosScreenState extends State<TreinosScreen> {
                           ),
                         ),
                         eventLoader: (day) {
-                          // Marca os dias que tem treino
-                          return _treinos
-                                  .any((d) => isSameDay(d, day))
+                          return _treinos.any((d) => isSameDay(d, day))
                               ? ['Treino']
                               : [];
                         },
@@ -132,14 +143,9 @@ class _TreinosScreenState extends State<TreinosScreen> {
       ),
     );
   }
-  
+
   bool isSameDay(DateTime? d, DateTime? day) {
     if (d == null || day == null) return false;
     return d.year == day.year && d.month == day.month && d.day == day.day;
   }
 }
-
-
-
-
-

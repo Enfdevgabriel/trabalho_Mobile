@@ -37,24 +37,32 @@ WOD – For Time
       body: SafeArea(
         child: Column(
           children: [
-            // Topo azul com título
             Container(
               color: Colors.blue[900],
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
               width: double.infinity,
-              child: const Center(
-                child: Text(
-                  'Check - in',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () => Navigator.pop(context),
                   ),
-                ),
+                  const Expanded(
+                    child: Center(
+                      child: Text(
+                        'Check - in',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 48),
+                ],
               ),
             ),
-
-            // Subtítulo
             Container(
               color: Colors.grey[300],
               padding: const EdgeInsets.all(8),
@@ -66,8 +74,6 @@ WOD – For Time
                 ),
               ),
             ),
-
-            // Área editável
             Expanded(
               child: Container(
                 margin: const EdgeInsets.all(16),
@@ -79,7 +85,7 @@ WOD – For Time
                 child: SingleChildScrollView(
                   child: TextField(
                     controller: _controller,
-                    maxLines: null, // permite várias linhas
+                    maxLines: null,
                     keyboardType: TextInputType.multiline,
                     decoration: const InputDecoration(
                       border: InputBorder.none,
@@ -92,26 +98,22 @@ WOD – For Time
                 ),
               ),
             ),
-
-            // Botão
             Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
               child: ElevatedButton(
-              onPressed: () {
-                // Aqui você pode salvar o treino editado
-                print("Treino: ${_controller.text}");
-                Navigator.pushNamed(context, '/Horarios');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[900],
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 50.0, vertical: 15.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25.0),
+                onPressed: () {
+                  print("Treino: ${_controller.text}");
+                  Navigator.pushNamed(context, '/horarios');
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue[900],
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
                 ),
+                child: const Text('Check-in'),
               ),
-              child: const Text('Check-in'),
-            ),
             ),
           ],
         ),

@@ -1,21 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const CrossfitApp());
-}
-
-class CrossfitApp extends StatelessWidget {
-  const CrossfitApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: CadastroScreen(),
-    );
-  }
-}
-
 class CadastroScreen extends StatefulWidget {
   @override
   State<CadastroScreen> createState() => _CadastroScreenState();
@@ -82,7 +66,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   elevation: 4,
                 ),
                 onPressed: () {
-                  // Aqui você pode adicionar a lógica de cadastro
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("Usuário cadastrado!")),
                   );
@@ -99,7 +82,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
     );
   }
 
-  // Método para criar campos de texto padronizados
   Widget _buildTextField(TextEditingController controller, bool isPassword) {
     return TextField(
       controller: controller,

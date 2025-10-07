@@ -1,34 +1,20 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(CrossLionApp());
-}
-
-class CrossLionApp extends StatelessWidget {
-  const CrossLionApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MenuScreen(),
-    );
-  }
-}
-
 class MenuScreen extends StatelessWidget {
-  final Color primaryColor = Color(0xFF1A237E);
+  final Color primaryColor = const Color(0xFF1A237E);
 
-  MenuScreen({super.key}); 
+  MenuScreen({super.key});
 
-  Widget menuButton(BuildContext context, String text, VoidCallback onPressed) {
+  Widget menuButton(BuildContext context, String text, String route) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: () {
+          Navigator.pushNamed(context, route);
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
-          padding: EdgeInsets.symmetric(vertical: 16.0),
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
@@ -36,7 +22,7 @@ class MenuScreen extends StatelessWidget {
         child: Center(
           child: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               color: Colors.white,
               letterSpacing: 1.2,
@@ -50,10 +36,15 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: Center(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, '/login'); // volta para login
+          },
+        ),
+        title: const Center(
           child: Text(
             'MENU',
             style: TextStyle(
@@ -62,34 +53,16 @@ class MenuScreen extends StatelessWidget {
             ),
           ),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            // ação de voltar
-          },
-        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            menuButton(context, 'CHECK IN', () 
-            {Navigator.pushNamed(context, '/checkin');}),
-
-            menuButton(context, 'MEU PLANO', () {
-              Navigator.pushNamed(context, '/Meu Plano');}),
-
-            menuButton(context, 'RECORDS - PR', () {
-              Navigator.pushNamed(context, '/recordes');
-            }),
-            menuButton(context, 'MEUS TREINOS', () {
-             Navigator.pushNamed(context, '/Treinosfeitos');
-            }),          
-            menuButton(context, 'AVISOS', () {
-            Navigator.pushNamed(context, '/avisos');
-}),
-            menuButton(context, 'historia', () {
-              Navigator.pushNamed(context, '/historias');}),
+            menuButton(context, 'CHECK IN', '/treinos'),
+            menuButton(context, 'RECORDS - PR', '/recordes'),
+            menuButton(context, 'MEUS TREINOS','/Treinosfeitos'),
+            menuButton(context, 'AVISOS', '/avisos'),
+            menuButton(context, 'HISTORIA', '/historias'),
           ],
         ),
       ),

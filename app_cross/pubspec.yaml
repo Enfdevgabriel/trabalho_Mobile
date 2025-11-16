@@ -19,3 +19,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets: 
+  - lib/Assets/Lion.jpg
+  - lib/Assets/Halter.png
+  - lib/Assets/check.png
+  - lib/Assets/calendario.png
+  - lib/Assets/mao.png
+  - lib/Assets/avisos.png
+  - lib/Assets/Lion.jpg

@@ -1,68 +1,121 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 class MenuScreen extends StatelessWidget {
   final Color primaryColor = const Color(0xFF1A237E);
 
   MenuScreen({super.key});
 
-  Widget menuButton(BuildContext context, String text, String route) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.pushNamed(context, route);
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: primaryColor,
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(
-              fontSize: 18,
-              color: Colors.white,
-              letterSpacing: 1.2,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+final List<Map<String, dynamic>> menuItems = [
+  {
+    'icon': 'lib/Assets/check.png',
+    'text': 'CHECK IN',
+    'route': '/treinos',
+  },
+  {
+    'icon': 'lib/Assets/mao.png',
+    'text': 'MEU PLANO',
+    'route': '/plano',
+  },
+  {
+    'icon': 'lib/Assets/Halter.png',
+    'text': 'RECORDS - PR',
+    'route': '/recordes',
+  },
+  {
+    'icon': 'lib/Assets/calendario.png',
+    'text': 'MEUS TREINOS',
+    'route': '/Treinosfeitos',
+  },
+  {
+    'icon': 'lib/Assets/avisos.png',
+    'text': 'AVISOS',
+    'route': '/avisos',
+  },
+  {
+    'icon': 'lib/Assets/Lion.jpg',
+    'text': 'SOBRE NÓS',
+    'route': '/historias',
+  },
+];
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: primaryColor,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, '/login'); // volta para login
-          },
-        ),
-        title: const Center(
-          child: Text(
-            'MENU',
-            style: TextStyle(
-              fontSize: 24,
-              letterSpacing: 2,
-            ),
-          ),
-        ),
+        title: const Text('MENU'),
+        automaticallyImplyLeading: false, // Remove o botão de voltar
       ),
-      body: Padding(
+      body: GridView.builder(
         padding: const EdgeInsets.all(16.0),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16.0,
+          mainAxisSpacing: 16.0,
+          childAspectRatio: 1.1,
+        ),
+        itemCount: menuItems.length,
+        itemBuilder: (context, index) {
+          final item = menuItems[index];
+          return _MenuCard(
+            icon: item['icon'],
+            text: item['text'],
+            onTap: () => Navigator.pushNamed(context, item['route']),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _MenuCard extends StatelessWidget {
+  final dynamic icon; // Can be IconData or String
+  final String text;
+  final VoidCallback onTap;
+
+  const _MenuCard({
+    required this.icon,
+    required this.text,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    Widget leadingWidget;
+
+    if (icon is IconData) {
+      leadingWidget = Icon(icon, size: 48, color: theme.colorScheme.primary);
+    } else if (icon is String) {
+      leadingWidget = Image.asset(
+        icon,
+        width: 48,
+        height: 48,
+        fit: BoxFit.contain,
+      );
+    } else {
+      leadingWidget = const SizedBox.shrink();
+    }
+
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: onTap,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            menuButton(context, 'CHECK IN', '/treinos'),
-            menuButton(context, 'RECORDS - PR', '/recordes'),
-            menuButton(context, 'MEUS TREINOS','/Treinosfeitos'),
-            menuButton(context, 'AVISOS', '/avisos'),
-            menuButton(context, 'HISTORIA', '/historias'),
+            leadingWidget,
+            const SizedBox(height: 16),
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
           ],
         ),
       ),

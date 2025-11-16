@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CadastroScreen extends StatefulWidget {
+  const CadastroScreen({super.key});
+
   @override
   State<CadastroScreen> createState() => _CadastroScreenState();
 }
@@ -15,66 +17,53 @@ class _CadastroScreenState extends State<CadastroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigo[900],
-        title: const Text(
-          "CADASTRO",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 2,
-          ),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.cyan),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        title: const Text("CADASTRO"),
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text("Nome:"),
-            _buildTextField(nomeController, false),
+            const SizedBox(height: 20),
+            _buildTextField(
+              controller: nomeController,
+              hintText: "Nome Completo",
+              icon: Icons.person_outline,
+            ),
             const SizedBox(height: 16),
-
-            const Text("E-mail:"),
-            _buildTextField(emailController, false),
+            _buildTextField(
+              controller: emailController,
+              hintText: "E-mail",
+              icon: Icons.email_outlined,
+              keyboardType: TextInputType.emailAddress,
+            ),
             const SizedBox(height: 16),
-
-            const Text("Senha:"),
-            _buildTextField(senhaController, true),
+            _buildTextField(
+              controller: senhaController,
+              hintText: "Senha",
+              icon: Icons.lock_outline,
+              isPassword: true,
+            ),
             const SizedBox(height: 16),
-
-            const Text("Confirme sua senha:"),
-            _buildTextField(confirmaSenhaController, true),
-            const SizedBox(height: 32),
-
-            Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.indigo[900],
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 40, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+            _buildTextField(
+              controller: confirmaSenhaController,
+              hintText: "Confirme sua senha",
+              icon: Icons.lock_outline,
+              isPassword: true,
+            ),
+            const SizedBox(height: 48),
+            ElevatedButton(
+              onPressed: () {
+                // Lógica de cadastro aqui
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Usuário cadastrado com sucesso!"),
+                    backgroundColor: Colors.green,
                   ),
-                  elevation: 4,
-                ),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("Usuário cadastrado!")),
-                  );
-                },
-                child: const Text(
-                  "Cadastrar",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
+                );
+                Navigator.pop(context);
+              },
+              child: const Text("Cadastrar"),
             ),
           ],
         ),
@@ -82,21 +71,20 @@ class _CadastroScreenState extends State<CadastroScreen> {
     );
   }
 
-  Widget _buildTextField(TextEditingController controller, bool isPassword) {
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String hintText,
+    required IconData icon,
+    bool isPassword = false,
+    TextInputType keyboardType = TextInputType.text,
+  }) {
     return TextField(
       controller: controller,
       obscureText: isPassword,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.grey[300],
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 12,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide.none,
-        ),
+        hintText: hintText,
+        prefixIcon: Icon(icon, color: Colors.grey[600]),
       ),
     );
   }

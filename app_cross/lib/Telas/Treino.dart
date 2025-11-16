@@ -45,7 +45,7 @@ WOD – For Time
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => Navigator.pushNamed(context, '/Horarios'),
                   ),
                   const Expanded(
                     child: Center(

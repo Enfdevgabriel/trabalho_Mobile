@@ -1,19 +1,23 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Chrome (isolated profile) http://localhost:59495",
-            "type": "pwa-chrome",
+            "name": "app_cross",
             "request": "launch",
-            "url": "http://localhost:59495",
-            "webRoot": "${workspaceFolder}",
-            "runtimeArgs": [
-                "--user-data-dir=${workspaceFolder}/.vscode/chrome-profile"
-            ]
+            "type": "dart"
+        },
+        {
+            "name": "app_cross (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "app_cross (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
         }
     ]
-
 }

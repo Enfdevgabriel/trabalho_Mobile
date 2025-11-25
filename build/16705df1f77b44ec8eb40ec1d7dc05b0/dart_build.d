@@ -1,0 +1,1 @@
+ C:\\Users\\Ricardo\\Documents\\GitHub\\trabalho_Mobile\\app_cross\\build\\16705df1f77b44ec8eb40ec1d7dc05b0\\dart_build_result.json: 

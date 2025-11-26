@@ -18,7 +18,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
 
   bool _isLoading = false;
 
-  // 👉 base URL da sua API no Render
   static const String baseUrl = 'https://trabalho-web-api.onrender.com';
 
   Future<void> _registrarUsuario() async {

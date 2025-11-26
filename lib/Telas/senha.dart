@@ -4,7 +4,6 @@ import 'dart:convert';
 
 // Chrome: http://localhost:8080
 // Emulador Android: http://10.0.2.2:8080
-// const String apiBaseUrl = 'http://localhost:8080';
 const String apiBaseUrl = 'https://trabalho-web-api.onrender.com';
 
 class ForgotPasswordScreen extends StatefulWidget {

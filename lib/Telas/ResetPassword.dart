@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-const String apiBaseUrl = 'http://localhost:8080';
+const String apiBaseUrl = 'https://trabalho-web-api.onrender.com';
 
 class ResetPasswordScreen extends StatefulWidget {
   final String token;

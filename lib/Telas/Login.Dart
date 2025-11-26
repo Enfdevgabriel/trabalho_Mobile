@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // - no Chrome: use 'http://localhost:8080'
 // - no emulador Android: use 'http://10.0.2.2:8080'
 // - em dispositivo físico: use 'http://IP_DA_SUA_MAQUINA:8080'
-const String apiBaseUrl = 'http://localhost:8080';
+const String apiBaseUrl = 'https://trabalho-web-api.onrender.com';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

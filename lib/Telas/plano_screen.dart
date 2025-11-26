@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const String apiBaseUrl = 'http://localhost:8080'; // ajuste para emulador/device se precisar
+const String apiBaseUrl = 'https://trabalho-web-api.onrender.com'; // ajuste para emulador/device se precisar
 
 class Plano {
   final int id;
